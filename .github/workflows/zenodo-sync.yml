@@ -1,14 +1,15 @@
 name: zenodo-sync
 
 on:
-  push:
-    branches: [ main ]
-    paths:
-      - 'out/**/*.pdf'
-      - 'zenodo.json'
-      - 'zenodo.files.json'
-      - 'scripts/sync_zenodo.py'
-      - '.github/workflows/zenodo-sync.yml'
+  - workflow_dispatch
+  - push:
+      branches: [ main ]
+      paths:
+        - 'out/**/*.pdf'
+        - 'zenodo.json'
+        - 'zenodo.files.json'
+        - 'scripts/sync_zenodo.py'
+        - '.github/workflows/zenodo-sync.yml'
 
 jobs:
   sync-zenodo:
