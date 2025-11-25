@@ -3,7 +3,7 @@ name: zenodo-sync
 on:
   workflow_dispatch:
   push:
-    branches: [ main ]
+    branches: [ master ]
     paths:
       - 'out/**/*.pdf'
       - 'zenodo.json'
