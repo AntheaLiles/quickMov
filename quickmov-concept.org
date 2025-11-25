@@ -1,0 +1,91 @@
+#+TITLE: quickMotion
+#+SUBTITLE: Ergonomie et adoption des raccourcis clavier : enseignements des jeux vidéo et perspectives pour les environnements de productivité
+#+AUTHOR: Cyprien PIERRE \orcidlink{0009-0009-9040-6795}
+#+EMAIL: cyprien.pierre@eiffage.com
+#+DATE: {{{time(%Y-%m-%d)}}}
+#+SETUPFILE: "~/org/config-tex.org"
+#+glossary_sources: ~/org/glossary.org
+
+#+begin_abstract
+Cet article examine comment les pratiques avancées des joueurs de jeux vidéo, qui apprennent de nombreux raccourcis clavier, peuvent éclairer la conception d’interfaces plus productives. Nous combinons des modèles théoriques de performance avec des études empiriques issues du monde du jeu et des logiciels professionnels. Les études montrent que si l’usage des raccourcis réduit significativement le temps de commande, leur adoption reste faible en raison de l’effort de mémorisation et des facteurs sociaux[cite:@peresKeyboardShortcutUsage2004;@raursoIntermodalImprovementNudging2020]. Les joueurs de jeux compétitifs démontrent cependant une remarquable capacité à intérioriser et à automatiser des centaines de raccourcis[cite:@huangMasterMakerUnderstanding2017]. Nous discutons ensuite comment ces leçons peuvent guider le design d’environnements de productivité, par exemple via des "nudges" contextuels pour inciter les utilisateurs à adopter les méthodes expertes[cite:@raursoIntermodalImprovementNudging2020]. L’article propose des pistes pour concevoir des aides à l’apprentissage des raccourcis et tirer parti de la capacité d’apprentissage des utilisateurs, en s’inspirant des routines d’entraînement des joueurs élites.
+#+end_abstract
+
+#+BEGIN_keyword
+raccourcis clavier, ergonomie, productivité, apprentissage, intéraction humain-machine, jeux vidéo
+#+END_keyword
+
+* Introduction
+Dans un contexte de productivité logicielle, les raccourcis clavier (hotkeys) offrent un moyen d’exécuter les commandes plus rapidement qu’avec les menus graphiques. Des modèles classiques de l’Interaction Homme-Machine indiquent que la frappe de raccourcis peut être jusqu’à deux fois plus rapide qu’une série de clics[cite:@peresKeyboardShortcutUsage2004;@raursoIntermodalImprovementNudging2020]. Cependant, un paradoxe persiste : même les utilisateurs confirmés n’adoptent pas spontanément ces raccourcis. Par exemple, Peres et al. soulignent que bien que l’usage d’un raccourci prenne en moyenne la moitié du temps d’une commande par menu, la plupart des utilisateurs préfèrent cliquer sur l'interface graphique[cite:@peresKeyboardShortcutUsage2004]. L’apprentissage des raccourcis impose une charge mémorielle supplémentaire (il faut "apprendre par coeur" les combinaisons de touches) et d'autres facteurs (habitudes sociales, frustrations éventuelles) freinent leur adoption[cite:@peresKeyboardShortcutUsage2004;@raursoIntermodalImprovementNudging2020].
+
+La présente étude propose d'explorer ce paradoxe à travers le prisme des jeux vidéo et des logiciels experts : comment des environnements cognitivement exigeants incitent-ils à mémoriser et utiliser de nombreux raccourcis, et quelles leçons peut-on en tirer pour les interfaces métiers ? Nous développons d'abord les bases théoriques de la performance en interaction, puis examinons l'adoption des raccourcis en pratique (jeux vidéo, logiciels métiers, standards d'interface), avant de proposer des éléments de conception inspirés de ces enseignements.
+
+* Etat de l'art
+** Impact des racourcis
+Les schémas de navigation en interface utilisateur opposent généralement deux modes : la navigation "par l'interface" (menus, écrans) et la navigation "par la connaissance" (raccourcis clavier). La théorie cognitive montre que les interfaces graphiques, en exposant les commandes à l'écran, allègent la mémoire de l'utilisateur[cite:@peresKeyboardShortcutUsage2004]. Comme l’ont montré Galitz et al., un utilisateur se repose sur des indices visuels lorsqu’ils sont disponibles[cite:@peresKeyboardShortcutUsage2004]. C’est pourquoi la documentation IBM CUA et les GUIs modernes cherchent à présenter à l'écran les commandes disponibles (menus déroulants, barres d'outils, bulles d’aide). En situation de début d'apprentissage, les utilisateurs explorent souvent un menu (comportement dit "hill-climbing") pour trouver les options[cite:@peresKeyboardShortcutUsage2004]. Cependant, l’approche par raccourcis repose sur un schéma différent : les commandes doivent être intériorisées (stockage dans la mémoire de travail). C’est là que l'idée de l'"expertise muette" prend tout son sens : comme le notent Zhang & Norman (1994), une information "dans la tête" est plus coûteuse à maintenir qu'une information "à l'écran". Les utilisateurs agissent souvent en "miserisant cognitif", préférant la solution de moindre effort mental[cite:@peresKeyboardShortcutUsage2004]. Ainsi, le schéma de navigation clavier nécessite un investissement initial (mémorisation et pratique) mais finit par offrir une navigation quasi-automatique, sans distraction visuelle.
+
+Les modèles GOMS et KLM de John & Kieras comparent l'éfficacité temporelle des différentes méthodes d'interaction. En termes de temps pur de saisie, un raccourci clé/combinée est typiquement plus rapide que la navigation dans une hiérarchie de menus[cite:@peresKeyboardShortcutUsage2004]. De même, la loi de Fitts prédit qu'une action directe au clavier n'implique pas le mouvement de la souris et élimine les composantes motrices de la couse-cible. La loi de Hick, quant à elle, modélise le temps de décision selon le nombre d'options visibles (ex : choix parmi N menus). En représentation analogique, on peut dire qu'un menu concentre les choix et impose un délai cognitif (Hick), alors qu'un raccourci exige une démarcation préalable mais aggrave peu le temps de décision une fois enregistré. Ces modèles soulignent que les raccourcis ont un avantage de latence faible, à condition qu'ils soient connaître et utilisés.
+
+A effectif égal, l'usage des raccourcis se traduit par des gains de temps signifiants sur les tâches répétitives. Par exemple, Lane et al. ont mesuré que pour des tâches usuelles de bureautique, l'utilisation des raccourcis pouvait être deux fois plus rapide que l'usage de la souris[cite:@peresKeyboardShortcutUsage2004]. Sur un rythme journalier, même économiser quelques secondes par commande peut se traduire par plusieurs minutes gagnées par heure de travail[cite:@peresKeyboardShortcutUsage2004]. La littrature souligne également que les facteurs humains influencent fortement l'adoption. Le phénomène de "cognitive miser" suggère que les utilisateurs préfèrent les mécanismes facilitant leur charge mémorielle[cite:@peresKeyboardShortcutUsage2004]. En particulier, l'absence de signaux visuels (les raccourcis sont un savoir "dans la tête") explique en grande partie qu'une interface graphique demeurant visuelle (menus, icônes) soit préférée[cite:@peresKeyboardShortcutUsage2004]. Peres et al. ont montré que l'usage effectif des raccourcis est corrélé à des facteurs sociaux et à l'expérience pratique : un utilisateur travaillant dans un environnement où les collègues utilisent intensivement les raccourcis est lui-même plus enclin à les utiliser[cite:@peresKeyboardShortcutUsage2004]. Enfin, l'âge et l'expérience interfèrent peu : même des experts chevronnés renoncent volontiers aux raccourcis au profit du clavier-souris si l'effort d'apprentissage semble élevé[cite:@peresKeyboardShortcutUsage2004;@raursoIntermodalImprovementNudging2020].
+
+** Mises en pratiques
+Plusieurs standards ou conventions historiques ont contribué à uniformiser les raccourcis. La norme IBM CUA de 1987 a introduit des règles pour les interfaces standard (barre de menus, touches de fonction, etc.)[cite:@berryEvolutionCommonUser1992]. Elle visait à rendre cohérent l'ensemble des logiciels IBM et les systèmes compatibles, par exemple en utilisant ~F10~ ou ~Alt~ pour ouvrir les menus. Malgré cela, les programmes textuels ou éditeurs de texte (vi, emacs, etc.) continuèrent à exiger une maîtrise poussée du clavier. Historiquement, chaque logiciel avait ses propres raccourcis (comme l’illustre l'ouverture de fichier avec ~:e~ en vi ou ~C-x C-f~ en Emacs), si bien qu’apprendre une application était signe de grande expertise. Cette diversité de standards de fait montre que les raccourcis sont à la fois anciens (origine au début de l’informatique) et adaptatifs aux contextes d'usage.
+
+Dans les outils spécialisés de conception, beaucoup de commandes ne sont accessibles que par le clavier ou sont optimisées via des raccourcis. Par exemple, les logiciels de CAO et DAO (AutoCAD, SolidWorks, Adobe Illustrator, etc.) mettent à disposition des centaines de commandes claviers. Les professionnels expérimentés utilisent volontairement le clavier pour une majorité d’entre elles. De même, dans la PAO ou les outils de développement, les raccourcis (copier/coller, conversion d'unités, etc.) font partie du workflow standard. Ces environnements intègrent parfois des "aperçus" ou infobulles pour aider à apprendre les raccourcis, ce qui atteste de la réalité de cet apprentissage. Cependant, comme dans l'environnement bureautique, beaucoup d'utilisateurs n'utilisent pas pleinement ces options efficaces, confirmant que le facteur didactique (apprentissage progressif des raccourcis) reste une barrière.
+
+Les jeux vidéo compétitifs (e-sport) sont un terrain d'étude de premier plan pour les raccourcis. Dans ces environnements dynamiques, les joueurs doivent traiter de très nombreuses informations en temps réel et exécuter des dizaines à centaines d'actions par minute. On observe ainsi que :
+- Les MMORPG (World of Warcraft, Guild Wars 2, Final Fantasy XIV, etc.) exigent de leur côté la mémorisation de nombreux sorts, objets et actions, chacun lié à un raccourci ou un slot clé.
+- Les RTS (StarCraft II, Age of Empires IV, etc.) obligent à coordonner plusieurs unités simultanément. Les meilleurs joueurs de StarCraft II executent jusqu'à 200 APM principalement via des raccourcis (hotkeys) dédiés à des groupes d'unités[cite:@huangMasterMakerUnderstanding2017]. Ils forment des routines uniques pour s'échauffer en début de match et opérer presque inconsciemment.
+- Les MOBA (Dota 2, League of Legends, etc.) présentent un schéma similaire, où chaque capacite et objet de champion est attribué à une touche. L'efficacité des joueurs de haut niveau dépend de leur capacite à utiliser ces raccourcis instantanément en situation de stress.
+- Les ARPG (Diablo IV, Path of Exile, etc.) combinent action rapide et gestion d'inventaire complexe. Les joueurs sénior/experts intègrent des centaines de raccourcis pour sorts, macros et commandes afin d'optimiser leur bouclage (kiting, rotation de sorts, etc.).
+
+Ces catégories de jeux partagent le caractère compétitif et la volumétrie de raccourcis. Les données de jeu montrent que les pratiquants assidus apprennent rapidement un corpus étendu de combinaisons, générant une amélioration de performance mesurable[cite:@huangMasterMakerUnderstanding2017]. Cette efficacité acquise contraste avec la faible adoption des raccourcis dans les outils classiques, et suggère que l'entraînement et la motivation jouent un rôle clef dans leurs adoption.
+
+** Synthèse
+Les environnements de jeux compétitifs illustrent clairement que les utilisateurs peuvent apprendre de nombreux raccourcis et construire des routines efficaces si leur motivation et l'entraînement sont appropriés. Les modèles de performance valident que les raccourcis sont plus efficaces en temps pur, mais les craintes cognitives expliquent leur adoption lente dans les outils de productivité. Pour tirer parti des enseignements des jeux vidéo, il convient d'encourager activement l'apprentissage des raccourcis dans les logiciels métiers. Par exemple, des interfaces peuvent proposer des suggestions de raccourcis contextuelles ou des phases d'échauffement (comme les joueurs de StarCraft) pour familiariser les utilisateurs avec les commandes clés. Des recherches récentes sur le « nudging » interactionnel montrent que des indices visuels subtils (infobulles, messages non intrusifs) peuvent inciter les utilisateurs à essayer les raccourcis sans frustration, avec des premiers résultats prometteurs[cite:@raursoIntermodalImprovementNudging2020]. En somme, la double expérience cognitive des joueurs et des utilisateurs experts suggère des perspectives d'amélioration des ergonomies d'interface : en capitalisant sur la capacité d'apprentissage moteur et sur des interfaces de soutien (éducatives ou adaptatives), on peut rapprocher l'efficacité des raccourcis de son potentiel théorique.
+
+* Questions et hypothèses
+
+* Un framework de définition de racourcis
+** Importance du contexte d'execution
+
+** Schémas de navigation
+
+** Définition des racourcis
+
+* Assistance à l'apprentissage
+Un schéma d'assistance à l'apprentissage pourrait être imaginé par l'emplois de claviers RGB où les clés de racourcis seraient illuminés suivant un code couleur permettant de les identifier rapidement.
+
+Etudier norme de communication des i/o RGB
+
+* Conclusion
+
+#+LATEX: \clearpage
+# /Nous avons beau parler la même langue, nous ne parlons pas toujours le même langage./
+
+* Références du document
+** Liste des figures
+  #+LATEX: \renewcommand{\listfigurename}{\vspace{-2em}}
+  #+LATEX: \listoffigures
+
+** Liste des tableaux
+  #+LATEX: \renewcommand{\listtablename}{\vspace{-2em}}
+  #+LATEX: \listoftables
+
+** Liste des codes sources
+  #+LATEX: \renewcommand{\lstlistingname}{\vspace{-2em}}
+  #+LATEX: \lstlistoflistings
+
+** Liste des glosses
+  #+LATEX: \begin{multicols}{2}\small{
+  #+print_glossary: :type glossary :only-contents t
+  #+LATEX: }\end{multicols}
+  
+** Liste des acronymes
+  #+LATEX: \begin{multicols}{2}\small{
+  #+print_glossary: :type acronym :only-contents t
+  #+LATEX: }\clearpage\end{multicols}
+
+* Bibliographie
+  #+LATEX: \begin{multicols}{2}\small{
+  #+print_bibliography: :heading none
+  #+LATEX: }\clearpage\end{multicols}

@@ -1,0 +1,19 @@
+{
+  "out/quickmov-concept.pdf": {
+    "title": "quickMov : Ergonomie et adoption des raccourcis clavier : enseignements des jeux vidéo et perspectives pour les environnements de productivité.",
+    "description": "Document conceptuel présentant les objectifs, hypothèses, périmètre et fondements théoriques du cadre d'interraction humain-machine par l'emplois de racourcis claviers, quickMov. Ce texte introduit les motivations ergonomiques et les liens avec l'Ecological Interface Design.",
+
+    "keywords": [
+      "quickMov",
+      "concept",
+      "foundations",
+      "Requirements",
+      "Ecological Interface Design",
+      "HCI"
+    ],
+
+    "language": "fra",
+
+    "publication_type": "report"
+  }
+}

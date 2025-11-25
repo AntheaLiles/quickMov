@@ -1,0 +1,56 @@
+name: zenodo-sync
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'out/**/*.pdf'
+      - 'zenodo.json'
+      - 'zenodo.files.json'
+      - 'scripts/sync_zenodo.py'
+      - '.github/workflows/zenodo-sync.yml'
+
+jobs:
+  sync-zenodo:
+    # éviter les boucles infinies sur les commits du bot
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write  # pour pouvoir pousser .zenodo_state.json
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          pip install requests
+
+      - name: Sync PDFs to Zenodo
+        env:
+          ZENODO_TOKEN: ${{ secrets.ZENODO_TOKEN }}
+          ZENODO_ENV: ${{ secrets.ZENODO_ENV }}
+        run: |
+          python scripts/sync_zenodo.py
+
+      - name: Commit Zenodo state if changed
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if git diff --quiet -- .zenodo_state.json; then
+            echo "No changes in .zenodo_state.json"
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add .zenodo_state.json
+            git commit -m "Update Zenodo state"
+            git push origin HEAD:${GITHUB_REF#refs/heads/}
+          fi

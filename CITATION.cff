@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "Citez ce travail comme suit."
+title: "quickMoc"
+version: "0.0.0"
+date-released: YYYY-MM-AA
+authors:
+  - family-names: "Pierre"
+    given-names: "Cyprien"
+    orcid: "https://orcid.org/0009-0009-9040-6795"
+license: "CC-BY-4.0"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.xxxxxx"   # ajouté après première release
+keywords: [quickDoc, EID, HCI, lightweight markup language]

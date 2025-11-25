@@ -1,0 +1,46 @@
+{
+  "title": "quickMov: Research Corpus",
+  "description": "Corpus de travaux de recherche autour du cadre d'intéraction humain-machine par l'emplois de racourcis claviers, quickMov, incluant documents de concept, analyses, résultats et spécifications. Chaque fichier PDF est archivé de manière indépendante avec son propre DOI de version.",
+
+  "upload_type": "publication",
+  "publication_type": "workingpaper",
+
+  "license": "cc-by-4.0",
+
+  "creators": [
+    {
+      "name": "Pierre, Cyprien",
+      "orcid": "0009-0009-9040-6795",
+      "affiliation": "LAMIH UMR CNRS 8201"
+    }
+  ],
+
+  "keywords": [
+    "User Centered Design",
+    "Ecological Interface Design", 
+    "Human-Computer Interaction", 
+    "Keyboard shortcuts"
+],
+
+  "language": "fra",
+
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/AntheaLiles/quickMov",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    }
+  ],
+
+  "notes": "Ce dépôt regroupe les travaux de recherche quickDoc, versionnés par PDF et date de compilation.",
+
+  "access_right": "open",
+
+  "subjects": [
+    {
+      "term": "Human-Computer Interaction",
+      "identifier": "HCI",
+      "scheme": "custom"
+    }
+  ]
+}
