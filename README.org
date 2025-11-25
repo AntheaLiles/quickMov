@@ -1,23 +1,8 @@
-#+title: Recherches opérationnelles dans l'intéraction Humain-données
-#+subtitle: Table des matières
+#+title: quickMov
 #+author: Cyprien PIERRE \orcidlink{0009-0009-9040-6795}
 #+EMAIL: cyprien.pierre@eiffage.com
 #+DATE: {{{time(%Y-%m-%d)}}}
 #+setupfile: "~/org/config-tex.org"
 
-* [[./quickDoc/][quickDoc]]
-Projet de recherche visant la création d'un langage de balisage léger cohérent, robuste et complet en remplacement de Markdown et en alternative à Org-mode.
 
-* [[./quickLang][quickLang]]
-Projet de recherche visant le développement d'un langage de programmation dédié à la manipulation de documents.
-
-* [[./quickMotion][quickMotion]]
 Projet de recherche visant à définir schéma d'intéraction humain machine ergonomique, inspiré des pratiques du jeu vidéo et sur l'emplois des racourcis claviers.
-
-* [[./quickViz/][quickViz]]
-Projet de recherche visant à établir un cadre formel et une méthode de sélection et de préparation des représentations graphiques des informations issues de bases de données.
-
-* [[./thesis/][Thèse]]
-Travaux poursuivis dans le cadre de mon doctora en informatique et applicatif à l'école doctorale de l'Univesité Polytechnique Haut de France.
-
-Ce projet de recherche vise à faciliter l'appreciation, la négociation et la vérification des contraintes d'un projet d'ingéniérie.
