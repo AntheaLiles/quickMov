@@ -37,11 +37,9 @@ def load_json(path, default=None):
         # fallback safe
         return default if default is not None else {}
 
-
 def save_json(path, data):
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
-
 
 def build_metadata(base_meta, file_meta, pdf_path):
     meta = dict(base_meta)
@@ -73,7 +71,6 @@ def build_metadata(base_meta, file_meta, pdf_path):
 
     return meta
 
-
 def find_latest_record_for_concept(conceptdoi):
     # récupère le dernier record publié pour ce conceptdoi
     params = {
@@ -89,7 +86,6 @@ def find_latest_record_for_concept(conceptdoi):
         return None
     return hits[0]
 
-
 def create_new_deposition(metadata):
     r = requests.post(
         f"{API}/deposit/depositions",
@@ -98,7 +94,6 @@ def create_new_deposition(metadata):
     )
     r.raise_for_status()
     return r.json()
-
 
 def new_version_deposition(conceptdoi, metadata):
     latest = find_latest_record_for_concept(conceptdoi)
@@ -132,18 +127,21 @@ def new_version_deposition(conceptdoi, metadata):
     r.raise_for_status()
     return r.json()
 
-
 def upload_file(deposition, pdf_path, dest_name):
     dep_id = deposition["id"]
     files_url = f"{API}/deposit/depositions/{dep_id}/files"
 
-    # supprimer d'éventuels fichiers existants portant le même nom
     existing_files = deposition.get("files", [])
     for f in existing_files:
         if f["filename"] == dest_name:
             del_url = f"{API}/deposit/depositions/{dep_id}/files/{f['id']}"
             dr = requests.delete(del_url, headers=HEADERS)
-            dr.raise_for_status()
+            try:
+                dr.raise_for_status()
+            except requests.HTTPError:
+                print(f"Warning: impossible de supprimer le fichier existant {dest_name} dans le dépôt {dep_id}")
+                print("Status:", dr.status_code)
+                print("Body:", dr.text)
 
     with open(pdf_path, "rb") as fp:
         r = requests.post(
@@ -152,8 +150,12 @@ def upload_file(deposition, pdf_path, dest_name):
             data={"name": dest_name},
             files={"file": fp},
         )
-    r.raise_for_status()
 
+    if not r.ok:
+        print(f"Erreur lors de l'upload de {pdf_path} vers le dépôt {dep_id}")
+        print("Status:", r.status_code)
+        print("Body:", r.text)
+    r.raise_for_status()
 
 def publish_deposition(deposition):
     dep_id = deposition["id"]
@@ -167,7 +169,6 @@ def publish_deposition(deposition):
     r2 = requests.get(record_url, headers=HEADERS)
     r2.raise_for_status()
     return r2.json()
-
 
 def main():
     if not ZENODO_TOKEN:
@@ -213,7 +214,6 @@ def main():
         print("State updated in .zenodo_state.json")
     else:
         print("No state change.")
-
 
 if __name__ == "__main__":
     main()
